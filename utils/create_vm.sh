@@ -2,11 +2,14 @@
 
 # Creates variables, with default values
 VM_NAME="InceptionVM" # Name of the virtual machine
-STORAGE_FOLDER="~/VirtualBox\ VMs" #Folder where hard disk storage file will be placed
+STORAGE_FOLDER="$HOME/VirtualBox_VMs" #Folder where hard disk storage file will be placed
 PATH_TO_ISO="" # Path to iso image with Debian OS image
+PATH_TO_CONFIG="preseed.cfg" # Path to installation config file
 
 # Define the options using getopt
-OPTIONS=$(getopt -o n:f:p: -l name:,folder:,path_to_iso: -- "$@")
+OPTIONS=$(getopt -o n:f:p:c: -l name:,folder:,path_to_iso:,path_to_config: -- "$@")
+
+eval set -- "$OPTIONS"
 
 # Process options
 while true; do
@@ -23,6 +26,10 @@ while true; do
             PATH_TO_ISO=$2
             shift 2
             ;;
+        -c|--path_to_config)
+            PATH_TO_CONFIG=$2
+            shift 2
+            ;;
         --)
             shift
             break
@@ -35,7 +42,7 @@ while true; do
 done
 
 # Check if path to iso image was given
-if [ $PATH_TO_ISO == "" ]; then
+if [ "$PATH_TO_ISO" == "" ]; then
     echo "Error: Path to ISO image not setted"
     exit
 fi
@@ -53,4 +60,12 @@ VBoxManage storagectl $VM_NAME --name "SATA Controller" --add sata --controller 
 VBoxManage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $STORAGE_FOLDER/$VM_NAME/$VM_NAME.vdi
 
 # Attach ISO image for OS installation
-VBoxManage storageattach $VM_NAME --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium $PATH_TO_ISO
+VBoxManage storagectl $VM_NAME --name "IDE Controller" --add ide
+VBoxManage storageattach $VM_NAME --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium $PATH_TO_ISO
+
+# Modify boot parameters to use preseed file
+VBoxManage modifyvm $VM_NAME --boot1 dvd --boot2 disk --boot3 none --boot4 none
+VBoxManage unattended install $VM_NAME --iso="$PATH_TO_ISO" --user="bcastelo" --password="inception123" --full-user-name="Bernardo" --install-additions --locale="en_US" --time-zone="UTC" --script-template="$PATH_TO_CONFIG"
+
+# Starts VM in background
+VBoxManage startvm $VM_NAME --type headless

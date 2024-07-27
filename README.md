@@ -67,13 +67,19 @@ Create virtual hard disk:
 ```bash
 $ VBoxManage createmedium --filename ~/VirtualBox\ VMs/InceptionVM/InceptionVM.vdi --size 10000 --format VDI
 $ VBoxManage storagectl "InceptionVM" --name "SATA Controller" --add sata --controller IntelAHCI
-$ VBoxManage storageattach "InceptionVM" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium ~/VirtualBox\ VMs/InceptionVM/InceptionVM.vdi
+$ VBoxManage storageattach "InceptionVM" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium ~/VirtualBox_VMs/InceptionVM/InceptionVM.vdi
 ```
 
-Attach ISO image for OS installation
+Attach ISO image for OS installation:
 
 ```bash
 $ VBoxManage storageattach "InceptionVM" --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium /path/to/debian.iso
+```
+
+Start VM in background:
+
+```bash
+$ VBoxManage startvm "InceptionVM" --type headless
 ```
 
 Source: [VBoxManage manual](https://www.virtualbox.org/manual/ch08.html)
