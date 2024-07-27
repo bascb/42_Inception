@@ -46,4 +46,34 @@ Source: [How to Install VirtualBox on Ubuntu](https://phoenixnap.com/kb/install-
 <a id="create_vm"></a>
 # Create a VM with VBoxManage
 
+In this chapter, i will explain, step by step, how to create a new VM with VBoxManage,
+Folder utils of this project repo has a script create_vm.sh that automates this process.
+The OS that i use for this VM is Debian, so this example is based on that.
+
+Creates the VM:
+
+```bash
+$ VBoxManage createvm --name "InceptionVM" --ostype "Debian_64" --register
+```
+
+Set VM params:
+
+```bash
+$ VBoxManage modifyvm "InceptionVM" --memory 2048 --cpus 1 --nic1 nat
+```
+
+Create virtual hard disk:
+
+```bash
+$ VBoxManage createmedium --filename ~/VirtualBox\ VMs/InceptionVM/InceptionVM.vdi --size 10000 --format VDI
+$ VBoxManage storagectl "InceptionVM" --name "SATA Controller" --add sata --controller IntelAHCI
+$ VBoxManage storageattach "InceptionVM" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium ~/VirtualBox\ VMs/InceptionVM/InceptionVM.vdi
+```
+
+Attach ISO image for OS installation
+
+```bash
+$ VBoxManage storageattach "InceptionVM" --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium /path/to/debian.iso
+```
+
 Source: [VBoxManage manual](https://www.virtualbox.org/manual/ch08.html)
