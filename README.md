@@ -59,7 +59,7 @@ $ VBoxManage createvm --name "InceptionVM" --ostype "Debian_64" --register
 Set VM params:
 
 ```bash
-$ VBoxManage modifyvm "InceptionVM" --memory 2048 --cpus 1 --nic1 nat
+$ VBoxManage modifyvm "InceptionVM" --memory 2048 --cpus 1 --nic1 bridged
 ```
 
 Create virtual hard disk:
