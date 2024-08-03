@@ -71,14 +71,14 @@ VBoxManage storagectl $VM_NAME --name "SATA Controller" --add sata --controller 
 VBoxManage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $STORAGE_FOLDER/$VM_NAME/$VM_NAME.vdi
 
 # Attach ISO image for OS installation
-#VBoxManage storagectl $VM_NAME --name "IDE Controller" --add ide
-#VBoxManage storageattach $VM_NAME --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium $PATH_TO_ISO
+VBoxManage storagectl $VM_NAME --name "IDE Controller" --add ide
+VBoxManage storageattach $VM_NAME --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium $PATH_TO_ISO
 
 # Modify boot parameters to use preseed file
 #VBoxManage modifyvm $VM_NAME --boot1 dvd --boot2 disk --boot3 none --boot4 none
 #chmod -R +xw $STORAGE_FOLDER
-VBoxManage unattended install $VM_NAME --iso="$PATH_TO_ISO" --install-additions #auto=true priority=critical #--script-template="$PATH_TO_CONFIG"
+#VBoxManage unattended install $VM_NAME --iso="$PATH_TO_ISO" --install-additions #auto=true priority=critical #--script-template="$PATH_TO_CONFIG"
 #VBoxManage setextradata $VM_NAME "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVersion" "preseed/file="file:/${PATH_TO_CONFIG}" auto=true priority=critical locale=en_US console-setup/ask_detect=false"
 
 # Starts VM in background
-VBoxManage startvm $VM_NAME --type headless
+VBoxManage startvm $VM_NAME --type gui
