@@ -95,10 +95,62 @@ Source: [VBoxManage manual](https://www.virtualbox.org/manual/ch08.html)
 
 The simplest way to create the VM. Follow my Born2beroot guide [42 Born2beroootl](https://github.com/bascb/Born2beroot/tree/master)
 
+After the installation make sure that apt is not trying to get packages from cr.rom repo.
+Edit file ```/etc/apt/sources.list```. Comment or remove the line:
+```
+deb cdrom:[Debian GNU/Linux 12.6.0 _Bookworm_ - Official amd64 DVD Binary-1 with firmware 20240629-10:19] bookworm main
+```
+
+And, to ensure that you have the necessary locales, run:
+```bash
+$ sudo nano /etc/locale.gen
+# Uncomment the desired locales
+$ sudo locale-gen
+$ sudo systemctl reboot
+```
+
 <a id="install_docker"></a>
 # Install Docker in VM
 
 This is a guide to install Docker engine in Debian 12.
 
+Folder utils of this project repo has a script install_docker.sh that automates this process.
+
+Run the following command to uninstall all conflicting packages:
+```bash
+$ for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+```
+
+Set up Docker's apt repository.
+```bash
+# Add Docker's official GPG key:
+$ sudo apt-get update
+$ sudo apt-get install ca-certificates curl
+$ sudo apt-get install build-essential
+$ sudo install -m 0755 -d /etc/apt/keyrings
+$ sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+$ sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+$ sudo apt-get update
+```
+To install the latest version, run:
+```bash
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
+```
+
+If you want, you can Verify that the installation is successful by running the hello-world image:
+```bash
+$ sudo docker run hello-world
+```
+
+Optional: Manage Docker as a Non-root User
+```bash
+$ sudo usermod -aG docker $USER
+```
 
 Source: [Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
