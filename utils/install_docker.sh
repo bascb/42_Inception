@@ -7,6 +7,7 @@ for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo apt-get install build-essential
+sudo apt-get install mariadb-client
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc

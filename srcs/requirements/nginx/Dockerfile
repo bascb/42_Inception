@@ -22,5 +22,5 @@ COPY conf/nginx.conf /etc/nginx/conf.d
 # Open port 443 to receive requests    
 EXPOSE 443
 
-# Set the command do run on container startup
-CMD ["bash", "nginx", "-g", "daemon off;"]
+# Set the command to run on container startup
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

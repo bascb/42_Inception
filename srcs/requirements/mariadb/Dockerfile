@@ -1,10 +1,14 @@
 # Current oldsatble: Debian 11 Bullseye
-FROM debian:oldstable
+FROM	debian:oldstable
 
-RUN apt update && apt upgrade -y && apt install mariadb-server -y
+# Update system and install necessary packages
+RUN	apt update && apt upgrade -y && apt install mariadb-server -y
 
-COPY tools/startup.sh .
+# Copies startup script
+COPY	tools/startup.sh .
 
-EXPOSE 3306
+# Open port to communicate
+EXPOSE	3306
 
-CMD ["bash", "startup.sh"]
+# Set the command to run on container startup
+CMD	["bash", "startup.sh"]

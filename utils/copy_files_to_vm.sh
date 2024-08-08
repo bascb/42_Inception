@@ -49,13 +49,16 @@ if [ "$URL" == "" ]; then
 fi
 
 # Copies srcs folder and Makefile
-sshpass -p $PASSWORD scp -r ../srcs/ $REMOTE_USER@$URL:~/
-sshpass -p $PASSWORD scp ../Makefile $REMOTE_USER@$URL:~/
+scp -r ../srcs/ $REMOTE_USER@$URL:~/ 
+
+scp ../Makefile $REMOTE_USER@$URL:~/ 
 
 # Copies .env
-sshpass -p $PASSWORD scp .env $REMOTE_USER@$URL:~/srcs
+scp .env $REMOTE_USER@$URL:~/srcs 
 
 # Creates script folder on remote and copies needed scripts
-sshpass -p $PASSWORD ssh $REMOTE_USER@$URL "mkdir -p /home/$REMOTE_USER/scripts"
-sshpass -p $PASSWORD scp install_docker.sh $REMOTE_USER@$URL:~/scripts
-sshpass -p $PASSWORD ssh $REMOTE_USER@$URL "chmod +x /home/$REMOTE_USER/scripts/*"
+ssh $REMOTE_USER@$URL "mkdir -p /home/$REMOTE_USER/scripts" 
+
+scp install_docker.sh $REMOTE_USER@$URL:~/scripts 
+
+ssh $REMOTE_USER@$URL "chmod +x /home/$REMOTE_USER/scripts/*"
