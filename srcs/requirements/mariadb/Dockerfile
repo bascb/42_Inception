@@ -1,6 +1,7 @@
+# Current oldsatble: Debian 11 Bullseye
 FROM debian:oldstable
 
-RUN apt update && apt install mariadb-server -y
+RUN apt update && apt upgrade -y && apt install mariadb-server -y
 
 COPY tools/startup.sh .
 

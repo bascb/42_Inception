@@ -7,6 +7,7 @@ This is a complete guide to build the 42 Inception project.
 - [Create a VM with VBoxManage](#create_vm_1)
 - [Create a VM with GUI](#create_vm_2)
 - [Install Docker in VM](#install_docker)
+- [Create a LEMP (Linux, Nginx, MariaDB, and PHP) server](#create_lemp_server)
 
 <a id="vbox"></a>
 # How to install VirtualBox on Ubuntu
@@ -154,3 +155,12 @@ $ sudo usermod -aG docker $USER
 ```
 
 Source: [Install Docker Engine on Debian](https://docs.docker.com/engine/install/debian/)
+
+<a id="create_lemp_server"></a>
+# Create a LEMP (Linux, Nginx, MariaDB, and PHP) server
+
+Here is a list of sites that i used to create and run containers for MariaDB, Wordpress and Nginx:
+
+- [How To Install WordPress with LEMP (Nginx, MariaDB and PHP) on Debian 10](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-nginx-mariadb-and-php-on-debian-10)
+- [How To Install Linux, Nginx, MariaDB, PHP (LEMP stack) on Debian 10](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10)
+- [How to install WordPress](https://developer.wordpress.org/advanced-administration/before-install/howto-install/)
