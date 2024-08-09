@@ -7,10 +7,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	
     # Changes to the website main folder
 	cd /var/www/html/
-
-     # adminer
-    wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-mysql-en.php -O /var/www/html/adminer.php &> /dev/null
-    wget https://raw.githubusercontent.com/Niyko/Hydra-Dark-Theme-for-Adminer/master/adminer.css -O /var/www/html/adminer.css &> /dev/null
 	
     # Downloads the WordPress core files
 	wp core download --allow-root
@@ -26,6 +22,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp core install --url=${WP_URL} --title="${WP_TITLE}" --admin_user=${WP_ADMIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email="$WP_ADMIN@student.42.fr" --allow-root
 	# Create a new user in WordPress
     wp user create ${WP_USER} "$WP_USER"@user.com --role=author --user_pass=${WP_USER_PASSWORD} --allow-root
+    # Install a theme to show the website
     wp theme install inspiro --activate --allow-root
     # Changes the ownership of folder /var/www/html/wp-content to webserver user www-data
 	chown -R www-data:www-data /var/www/html/wp-content

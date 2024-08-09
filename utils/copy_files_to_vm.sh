@@ -57,8 +57,8 @@ scp ../Makefile $REMOTE_USER@$URL:~/
 scp .env $REMOTE_USER@$URL:~/srcs 
 
 # Creates script folder on remote and copies needed scripts
-ssh $REMOTE_USER@$URL "mkdir -p /home/$REMOTE_USER/scripts" 
+#ssh $REMOTE_USER@$URL "mkdir -p /home/$REMOTE_USER/scripts" 
 
-scp install_docker.sh $REMOTE_USER@$URL:~/scripts 
+#scp install_docker.sh $REMOTE_USER@$URL:~/scripts 
 
-ssh $REMOTE_USER@$URL "chmod +x /home/$REMOTE_USER/scripts/*"
+#ssh $REMOTE_USER@$URL "chmod +x /home/$REMOTE_USER/scripts/*"

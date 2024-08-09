@@ -42,7 +42,7 @@ mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 service mariadb stop
 
 # Runs this command to replace this script by mysqld_safe command:
-# Is a wrapper script provided by MySQL and MariaDB to start the mysqld daemon
+# Is a script provided by MySQL and MariaDB to start the mysqld daemon
 # It adds some safety features like restarting the server if it crashes and logging errors to a file
 # --bind-address=0.0.0.0 tells the MySQL server to bind to all available network interfaces.
 # it allows MySQL to accept connections from any IP address, effectively making it accessible from remote machines.
